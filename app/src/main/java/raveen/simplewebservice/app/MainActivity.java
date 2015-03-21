@@ -17,18 +17,21 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TextView response_text = (TextView)findViewById(R.id.response);
-        TextView post_text = (TextView)findViewById(R.id.post_text);
-        TextView url_text = (TextView)findViewById(R.id.url_text);
+        final TextView response_text = (TextView)findViewById(R.id.response);
+        final TextView post_text = (TextView)findViewById(R.id.post_text);
+        final TextView url_text = (TextView)findViewById(R.id.url_text);
         Button button = (Button)findViewById(R.id.button);
+        final String url = "http://ip.jsontest.com/";
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 WebService webService = new WebService(MainActivity.this,"Retrieving your data....");
                 try {
-                    String response = webService.execute("","").get().toString();
-
+                    String response = webService.execute(url).get().toString();
+                    response_text.setText(response);
+                    url_text.setText(url);
+                    post_text.setText("None");
                     
                 } catch (InterruptedException e) {
                     e.printStackTrace();
